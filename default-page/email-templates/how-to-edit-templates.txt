@@ -1,0 +1,14 @@
+Follow complete guide here:
+
+https://github.com/leemunroe/responsive-html-email-template
+
+
+
+Edit the templates with -edit.html file suffix
+
+Once done - copy the code and generate the inline code:
+
+https://htmlemail.io/inline/
+
+
+and save it to the file without any -edit suffix suffix and again update the values in the database options table.
