@@ -100,13 +100,13 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 					var searchSiteCounter = 1;
 					$.each( searchData, function(index, record) {
 						
-						searchSiteListHtml += '<tr class="searchNode'+record['node_id']+'site'+record['site_id']+'" data-node-id="'+record['node_id']+'" data-site-id="'+record['site_id']+'">';
+						searchSiteListHtml += '<tr class="searchNode'+record['node_id']+'site'+record['id']+'" data-node-id="'+record['node_id']+'" data-site-id="'+record['id']+'">';
 						searchSiteListHtml += '<th scope="row">'+searchSiteCounter+'</th>';
 						searchSiteListHtml += '<td class="text-center">'+record['node_id']+'</td>';
 						searchSiteListHtml += '</tr>';
 						
 						//function get the site info
-						getSiteInfo( $, record['node_id'], record['site_id'], 'searchNode'+record['node_id']+'site'+record['site_id'] );
+						getSiteInfo( $, record['node_id'], record['id'], 'searchNode'+record['node_id']+'site'+record['id'] );
 						
 						searchSiteCounter++;
 					});
@@ -205,7 +205,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 
 				html += '<td class="text-center"><span class="badge bg-light">'+nodeTotalSites+'/'+licenseNodeTotalSiteLimit+'</span></td>';
 				
-				html += '<td class="text-center"><span class="badge bg-light">'+record['THIS_CONTROLLER_REGION']+'</span></td>';
+				html += '<td class="text-center"><span class="badge bg-light">'+record['THIS_CONTROLLER_PROVIDER_NAME']+'</span></td>';
 				
 				html += '<td>';
 				  html += '<div class="btn-group">';
@@ -243,14 +243,11 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 					siteListHtml += '<table data-node-id="'+nodeId+'" data-node-name="'+nodeName+'" id="node'+nodeId+'-SiteListTable" class="table table-bordered table-hover table-sm mb-0"><thead class="table-success"><tr>';
 						siteListHtml += '<th scope="col">#</th>';
 						siteListHtml += '<th scope="col">Status</th>';
-						siteListHtml += '<th scope="col" class="text-center">%</th>';
-						siteListHtml += '<th scope="col">Order</th>';
+						siteListHtml += '<th scope="col">Order-ID</th>';
 						siteListHtml += '<th scope="col">Site-ID</th>';
 						siteListHtml += '<th scope="col">Domain</th>';
 						siteListHtml += '<th scope="col">Client email</th>';
-						siteListHtml += '<th scope="col" class="text-center">WP</th>';
-						siteListHtml += '<th scope="col" class="text-center">PHP</th>';
-						siteListHtml += '<th scope="col">Restrict</th>';
+						siteListHtml += '<th scope="col">Restrict-ID</th>';
 						siteListHtml += '<th scope="col">Bandwidth / Unique / Page views</th>';
 						siteListHtml += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
 						siteListHtml += '<th scope="col">Actions</th>';
@@ -491,7 +488,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 		
 		var firstRecord = results.data[0];
 		var encKey = 'n/a';
-		encKey = md5( firstRecord['ssh_password']+firstRecord['site_id'] );
+		encKey = md5( firstRecord['ssh_password']+firstRecord['id'] );
 		
 		if( trClass ){
 			
@@ -503,7 +500,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 actionActivateSite">Deactivated <span class="text-danger"><small><i class="fas fa-times-circle"></i></small></span></a></td>' );
 			}
 			
-			$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['progress_completed']+'</td>' );
+			//$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['progress_completed']+'</td>' );
 			
 			
 			if( firstRecord['unique_order_id'] == null ){
@@ -513,13 +510,13 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 			}
 			
 			
-			$( '.'+trClass ).append( '<td>'+firstRecord['site_id']+'</td>' );
+			$( '.'+trClass ).append( '<td>'+firstRecord['id']+'</td>' );
 			
 			$( '.'+trClass ).append( '<td><a class="text-decoration-none" href="https://'+firstRecord['domain']+'/" target="_blank">'+firstRecord['domain']+' <small><i class="fas fa-external-link-alt"></i></small></a> | <a class="text-decoration-none" href="https://'+firstRecord['domain']+'/wp-admin/" target="_blank"><small><i class="fas fa-columns"></i></small></a></td>' );
 			
 			$( '.'+trClass ).append( '<td>'+firstRecord['client_email']+'</td>' );
-			$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['wp_version']+'</td>' );
-			$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['php_version']+'</td>' );
+			//$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['wp_version']+'</td>' );
+			//$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['php_version']+'</td>' );
 			$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['restrictions_group']+'</td>' );
 			
 			$( '.'+trClass ).append( '<td><small>'+firstRecord['TOTAL_BANDWIDTH_MB']+'MB / '+firstRecord['TOTAL_UNIQUE_VISITORS']+' Unique / '+firstRecord['TOTAL_PAGE_VIEWS']+' Page views</small></td>' );
@@ -536,8 +533,8 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 					html += '<a class="btn btn-outline-warning btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';
 					html += '<a class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></a>';
 						html += '<div class="dropdown-menu">';
-							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['site_id']+'&key='+encKey+'&log=php-error" target="_blank">View Log - Error</a>';
-							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['site_id']+'&key='+encKey+'&log=php-slow" target="_blank">View Log - Slow</a>';
+							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-error" target="_blank">View Log - Error</a>';
+							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-slow" target="_blank">View Log - Slow</a>';
 							html += '<hr class="dropdown-divider">';
 							html += '<a class="dropdown-item actionBackupRestore" href="#">Backup/Restore</a>';
 							html += '<hr class="dropdown-divider">';
@@ -562,7 +559,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 		
 		if(selectIdElement == '#newSiteCloneSourceSiteId' ){
 			$(selectIdElement).append( 
-				'<option value="'+firstRecord['site_id']+'">' +firstRecord['domain']+ ' - (Site ID - ' +firstRecord['site_id']+ ')</option>' 
+				'<option value="'+firstRecord['id']+'">' +firstRecord['domain']+ ' - (Site ID - ' +firstRecord['id']+ ')</option>' 
 			);
 		}
 		

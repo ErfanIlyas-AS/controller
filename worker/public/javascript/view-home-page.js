@@ -308,9 +308,10 @@ jQuery( document ).ready(function( $ ) {
 		
 		getSiteJson( $, selectedNodeId, selectedSiteId ).done( function( apiData ){
 			var results = apiData.data[0];
+      
 			
 			$( '#updateSiteSelectedNodeId' ).val( results['node-id'] );
-			$( '#updateSiteSelectedSiteId' ).val( results['site_id'] );
+			$( '#updateSiteSelectedSiteId' ).val( results['id'] );
 			
 			
 			$( '#updateSitePhpVer' ).val( results['php_version'] ).change();
