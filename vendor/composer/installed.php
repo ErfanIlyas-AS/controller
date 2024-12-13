@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => '1.0.0+no-version-set',
         'version' => '1.0.0.0',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -65,9 +65,9 @@
             'dev_requirement' => false,
         ),
         'jeremykendall/php-domain-parser' => array(
-            'pretty_version' => '5.7.2',
-            'version' => '5.7.2.0',
-            'reference' => 'a2f61eb1fa1ebe0ea67a64b5d631495c304a189b',
+            'pretty_version' => '6.3.1',
+            'version' => '6.3.1.0',
+            'reference' => 'aa1f9bf2617c9863f2286595403f7dbffe2786ea',
             'type' => 'library',
             'install_path' => __DIR__ . '/../jeremykendall/php-domain-parser',
             'aliases' => array(),
@@ -168,15 +168,6 @@
             'provided' => array(
                 0 => '1.0',
             ),
-        ),
-        'psr/log' => array(
-            'pretty_version' => '1.1.3',
-            'version' => '1.1.3.0',
-            'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../psr/log',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'psr/simple-cache' => array(
             'pretty_version' => '1.0.1',

@@ -344,48 +344,48 @@
         },
         {
             "name": "jeremykendall/php-domain-parser",
-            "version": "5.7.2",
-            "version_normalized": "5.7.2.0",
+            "version": "6.3.1",
+            "version_normalized": "6.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeremykendall/php-domain-parser.git",
-                "reference": "a2f61eb1fa1ebe0ea67a64b5d631495c304a189b"
+                "reference": "aa1f9bf2617c9863f2286595403f7dbffe2786ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeremykendall/php-domain-parser/zipball/a2f61eb1fa1ebe0ea67a64b5d631495c304a189b",
-                "reference": "a2f61eb1fa1ebe0ea67a64b5d631495c304a189b",
+                "url": "https://api.github.com/repos/jeremykendall/php-domain-parser/zipball/aa1f9bf2617c9863f2286595403f7dbffe2786ea",
+                "reference": "aa1f9bf2617c9863f2286595403f7dbffe2786ea",
                 "shasum": ""
             },
             "require": {
+                "ext-filter": "*",
                 "ext-intl": "*",
                 "ext-json": "*",
-                "php": "^7.2.5 || ^8.0",
-                "psr/log": "^1.1",
-                "psr/simple-cache": "^1.0.1"
+                "php": "^8.1"
             },
             "require-dev": {
-                "composer/composer": "^1.6 || ^2.0",
-                "friendsofphp/php-cs-fixer": "^2.16",
-                "mikey179/vfsstream": "^1.6.7",
-                "phpstan/phpstan": "^0.12",
-                "phpstan/phpstan-phpunit": "^0.12",
-                "phpstan/phpstan-strict-rules": "^0.12",
-                "phpunit/phpunit": "^8.0 || ^9.3"
+                "friendsofphp/php-cs-fixer": "^3.53.0",
+                "guzzlehttp/guzzle": "^7.8.1",
+                "guzzlehttp/psr7": "^1.6 || ^2.6.2",
+                "phpstan/phpstan": "^1.10.66",
+                "phpstan/phpstan-phpunit": "^1.3.16",
+                "phpstan/phpstan-strict-rules": "^1.5.3",
+                "phpunit/phpunit": "^10.5.15 || ^11.1.1",
+                "psr/http-factory": "^1.0.2",
+                "psr/simple-cache": "^1.0.1",
+                "symfony/cache": "^v5.0.0 || ^6.4.6"
             },
             "suggest": {
-                "ext-curl": "To use the package http client",
                 "league/uri": "To parse URL and validate host",
-                "psr/simple-cache-implementation": "To enable using other cache providers"
+                "psr/http-client-implementation": "To use the storage functionnality which depends on PSR-18",
+                "psr/http-factory-implementation": "To use the storage functionnality which depends on PSR-17",
+                "psr/simple-cache-implementation": "To use the storage functionnality which depends on PSR-16"
             },
-            "time": "2020-10-26T06:41:32+00:00",
-            "bin": [
-                "bin/update-psl"
-            ],
+            "time": "2024-11-10T09:18:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.x-dev"
+                    "dev-master": "6.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -401,12 +401,12 @@
             "authors": [
                 {
                     "name": "Jeremy Kendall",
-                    "homepage": "http://about.me/jeremykendall",
+                    "homepage": "https://about.me/jeremykendall",
                     "role": "Developer"
                 },
                 {
                     "name": "Ignace Nyamagana Butera",
-                    "homepage": "http://nyamsprod.com",
+                    "homepage": "https://nyamsprod.com",
                     "role": "Developer"
                 },
                 {
@@ -414,7 +414,7 @@
                     "homepage": "https://github.com/jeremykendall/php-domain-parser/graphs/contributors"
                 }
             ],
-            "description": "Public Suffix List based URL parsing implemented in PHP.",
+            "description": "Public Suffix List and IANA Root Zone Database based Domain parsing implemented in PHP.",
             "homepage": "https://github.com/jeremykendall/php-domain-parser",
             "keywords": [
                 "PSL",
@@ -1155,56 +1155,6 @@
                 "response"
             ],
             "install-path": "../psr/http-message"
-        },
-        {
-            "name": "psr/log",
-            "version": "1.1.3",
-            "version_normalized": "1.1.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/log.git",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
-                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "time": "2020-03-23T09:12:05+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.1.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-                "log",
-                "psr",
-                "psr-3"
-            ],
-            "install-path": "../psr/log"
         },
         {
             "name": "psr/simple-cache",
