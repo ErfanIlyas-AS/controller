@@ -428,15 +428,14 @@ jQuery( document ).ready(function( $ ) {
 				injectHtml += '<td>'+record['ID']+'</td>';
 				injectHtml += '<td>'+record['user_login']+'</td>';
 				injectHtml += '<td>'+record['user_email']+'</td>';
-				injectHtml += '<td>'+record['display_name']+'</td>';
 				injectHtml += '<td>'+record['roles']+'</td>';
-				injectHtml += '<td>'+record['user_registered']+'</td>';
-				injectHtml += '<td><a class="btn btn-link p-0 actionGetUserLoginLink" target="_blank" href="#" data-user-id="'+record['ID']+'" data-node-id="'+apiData.data[0]['node-id']+'" data-site-id="'+apiData.data[0]['site_id']+'"><i class="fas fa-sign-in-alt"></i></a></td>';
+				injectHtml += '<td><a class="btn btn-link p-0 actionGetUserLoginLink" target="_blank" href="#" data-user-id="'+record['ID']+'" data-node-id="'+apiData.data[0]['node-id']+'" data-site-id="'+apiData.data[0]['id']+'"><i class="fas fa-sign-in-alt"></i></a></td>';
 				injectHtml += '</tr>';
 			});
 			$( '#dumpHTMLHereUsersList' ).html( injectHtml );
 			
 			
+      /*
 			injectHtml = '<div class="col-6" style="border-right: 1px dotted #ccc;">';
 			
 				injectHtml += '<h5 class="mb-3"><i class="fas fa-upload"></i> SFTP access info</h5>';
@@ -555,7 +554,7 @@ jQuery( document ).ready(function( $ ) {
 			
 			
 			$( '#otherAccessInfoHtmlDumpWrapper' ).html( injectHtml );
-				
+			*/
 			
 			//hide the loading div
 			$( '.modalLoadingDivWrapper' ).slideUp();
@@ -673,10 +672,10 @@ jQuery( document ).ready(function( $ ) {
 
 	
 	
-	
+	/*
 	//on change selector for newsite form
 	$( '#newSiteCloneSourceNode' ).on('change', function( e ) {
-		
+    
 		newSiteCloneSourceNodeId = $(this).val();
 		
 		if( newSiteCloneSourceNodeId !== '' ){
@@ -687,45 +686,8 @@ jQuery( document ).ready(function( $ ) {
 			$( '#dumpInjectHtmlHere' ).html( '&nbsp;' );
 		}
 	  
-	  /*
-	  newSiteCloneSourceNodeId = $(this).val();
-	  
-	  if( newSiteCloneSourceNodeId !== '' ){
-		
-		//show loading spinner
-		$( '#cloneSourceSiteIdSpinnerIcon' ).show();
-		
-		var time = 0;
-		var lastSiteId = allNetworkSites[newSiteCloneSourceNodeId].length;
-		lastSiteId--;
-		
-		$.each( allNetworkSites[newSiteCloneSourceNodeId], function(index, record) {
-			
-			setTimeout( function(){
-				
-				 //function get the site info
-				  getSiteInfo( $, newSiteCloneSourceNodeId, record['id'], false, '#newSiteCloneSourceSiteId' ).done( function(){
-						if( index == lastSiteId ){
-							$( '#newSiteCloneSourceSiteId' ).attr( 'disabled', false );
-							$( '#cloneSourceSiteIdSpinnerIcon' ).hide(); //hide loading spinner
-						}
-				  });
-		  
-			}, time)
-			time += 50;
-			
-		});
-		
-		
-	  }else{
-		  $( '#newSiteCloneSourceSiteId' ).attr( 'disabled', true ).html('<option value="">select</option>');
-		  $( '#injectFormBuilderWrapper' ).slideUp();
-		  $( '#dumpInjectHtmlHere' ).html( '&nbsp;' );
-	  }
-	  
-	  */
-	  
 	});
+  */
 	
 	
 	
@@ -739,17 +701,17 @@ jQuery( document ).ready(function( $ ) {
 		
 		formatResult: function (item) {
 			return {
-				value: item.site_id,
-				text: "[" + item.site_id + "] " + item.domain,
+				value: item.id,
+				text: item.domain + " - [SiteID: " + item.id + "]",
 			};
 		},
 		resolver: 'custom',
 		events: {
 			search: function (qry, callback) {
-				paramters = { 'user':'superduper', 'key':API_KEY, 'node-id':newSiteCloneSourceNodeId, 'domain':qry };
+				paramters = { 'user':'superduper', 'key':API_KEY, 'node-id':'1', 'domain':qry };
 				return $.ajax({
 					method: 'post',
-					url:'//ctrl-'+newSiteCloneSourceNodeId+'.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
+					url:'//ctrl-1.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
 					data:paramters
 				}).done(function( results ) {
 					console.log( results.data );
@@ -763,7 +725,7 @@ jQuery( document ).ready(function( $ ) {
 	$( '.basicAutoComplete ').on( 'autocomplete.select', function (evt, item) {
 		if( item ){
 			$( '#cloneSourceSiteIdSpinnerIcon' ).show();
-			getSiteInfo( $, newSiteCloneSourceNodeId, item.site_id, false, '#injectFormBuilderWrapper' );
+			getSiteInfo( $, '1', item.id, false, '#injectFormBuilderWrapper' );
 		}else{
 			$( '#cloneSourceSiteIdSpinnerIcon' ).hide();
 			$('#injectFormBuilderWrapper').slideUp();

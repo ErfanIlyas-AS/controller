@@ -212,13 +212,13 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 				    html += '<a class="btn btn-primary btn-sm btnCreateNewSite" data-node-id="'+nodeId+'">Create new site</a>';
 					html += '<a class="btn btn-warning btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">more</a>';
 					html += '<ul class="dropdown-menu">';
-            html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.2">PHP8.2-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+            html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.3">PHP8.3-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  html += '<li><hr class="dropdown-divider"></li>';
-            html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.2">PHP8.2-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+            html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.3">PHP8.3-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  html += '<li><hr class="dropdown-divider"></li>';
 					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=GIT_FETCH_DEPLOY_FROM_CTRL&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Git Fetch & Deploy <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  html += '<li><hr class="dropdown-divider"></li>';
@@ -367,13 +367,16 @@ function newSiteFormSubmit( $ ){
 		paramteres['subdomain'] = newSiteSubdomain;
 	}
 	
+  /*
 	var newSiteCloneSourceNode = $( '#newSiteCloneSourceNode' ).val();
 	if( newSiteCloneSourceNode !== '' ){
 		paramteres['clone-source-node-id'] = newSiteCloneSourceNode;
 	}
+  */
 	
 	var newSiteCloneSourceSiteId = $( '#newSiteCloneSourceSiteId_wrapper' ).find( '[name=newSiteCloneSourceSiteId]' ).val();
 	if( newSiteCloneSourceSiteId !== '' ){
+    paramteres['clone-source-node-id'] = '1';
 		paramteres['clone-source-site-id'] = newSiteCloneSourceSiteId;
 	}
   
@@ -485,7 +488,8 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 		url:'//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
 		data:paramters
 	}).done(function( results ) {
-		
+    
+    
 		var firstRecord = results.data[0];
 		var encKey = 'n/a';
 		encKey = md5( firstRecord['ssh_password']+firstRecord['id'] );
@@ -496,6 +500,8 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 actionDeactivateSite" href="#">Active <span class="text-success"><small><i class="fas fa-check-square"></i></small></span></a></td>' );
 			}else if( firstRecord['status'] == '222' ){
 				$( '.'+trClass ).append( '<td>Marked For Removal <span class="text-danger"><small><i class="fas fa-times-circle"></i></small></span></td>' );
+			}else if( firstRecord['status'] == '199' ){
+				$( '.'+trClass ).append( '<td>Marked For Cloning <span class="text-danger"><small><i class="fas fa-paste"></i></small></span></td>' );
 			}else{
 				$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 actionActivateSite">Deactivated <span class="text-danger"><small><i class="fas fa-times-circle"></i></small></span></a></td>' );
 			}
@@ -524,7 +530,8 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 			
 			
 			
-			if( firstRecord['status'] != '222' ){
+			if( (firstRecord['status'] == '222') || (firstRecord['status'] == '199') ){
+      }else{
 				var html = '<td>';
 				
 				html += '<div class="btn-group me-4">';
@@ -533,14 +540,14 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 					html += '<a class="btn btn-outline-warning btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';
 					html += '<a class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></a>';
 						html += '<div class="dropdown-menu">';
-							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-error" target="_blank">View Log - Error</a>';
-							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-slow" target="_blank">View Log - Slow</a>';
-							html += '<hr class="dropdown-divider">';
-							html += '<a class="dropdown-item actionBackupRestore" href="#">Backup/Restore</a>';
-							html += '<hr class="dropdown-divider">';
-							html += '<a class="dropdown-item actionRecreateUsers" href="#">Recreate Users</a>';
-							html += '<hr class="dropdown-divider">';
-							html += '<a class="dropdown-item actionDisableThemePlugins" href="#">Disable Theme/Plugins</a>';
+							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=wp-errors" target="_blank">View Log - Error</a>';
+							//html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-slow" target="_blank">View Log - Slow</a>';
+							//html += '<hr class="dropdown-divider">';
+							//html += '<a class="dropdown-item actionBackupRestore" href="#">Backup/Restore</a>';
+							//html += '<hr class="dropdown-divider">';
+							//html += '<a class="dropdown-item actionRecreateUsers" href="#">Recreate Users</a>';
+							//html += '<hr class="dropdown-divider">';
+							//html += '<a class="dropdown-item actionDisableThemePlugins" href="#">Disable Theme/Plugins</a>';
 						html += '</div>';
 				
 				html += '</div>';
