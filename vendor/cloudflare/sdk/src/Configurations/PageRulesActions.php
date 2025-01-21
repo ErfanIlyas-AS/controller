@@ -128,7 +128,7 @@ class PageRulesActions implements Configurations
 
     public function setEmailObfuscation(bool $active)
     {
-        $this->addConfigurationOption('email_obfuscation', [
+        $this->addConfigurationOption('disable_security', [
             'value' => $this->getBoolAsOnOrOff($active)
         ]);
     }
@@ -170,12 +170,10 @@ class PageRulesActions implements Configurations
 
     public function setMinification(bool $html, bool $css, bool $javascript)
     {
-        $this->addConfigurationOption('minify', [
-            'value' => [
-                'html' => $this->getBoolAsOnOrOff($html),
-                'css' => $this->getBoolAsOnOrOff($css),
-				'js' => $this->getBoolAsOnOrOff($javascript),
-            ],
+        $this->addConfigurationOption('minification', [
+            'html' => $this->getBoolAsOnOrOff($html),
+            'css' => $this->getBoolAsOnOrOff($css),
+            'js' => $this->getBoolAsOnOrOff($javascript),
         ]);
     }
 

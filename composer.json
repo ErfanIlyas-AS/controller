@@ -1,7 +1,7 @@
 {
     "require": {
         "cloudflare/sdk": "^1.1",
-        "aws/aws-sdk-php": "^3.171",
+        "aws/aws-sdk-php": "^3",
         "stefangabos/zebra_database": "^2.11",
         "jeremykendall/php-domain-parser": "^6.0",
         "phpfastcache/phpfastcache": "^8.0",

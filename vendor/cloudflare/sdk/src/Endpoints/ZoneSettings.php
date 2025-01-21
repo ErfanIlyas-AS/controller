@@ -21,26 +21,6 @@ class ZoneSettings implements API
     {
         $this->adapter = $adapter;
     }
-	
-	
-	//invokers waas1 patched start
-	public function getEarlyHintsSetting($zoneID)
-    {
-        $return = $this->adapter->get(
-            'zones/' . $zoneID . '/settings/early_hints'
-        );
-        $body   = json_decode($return->getBody());
-
-        if ($body->success) {
-            return $body->result->value;
-        }
-
-        return false;
-    }
-	//invokers waas1 patched end
-	
-	
-	
 
     public function getMinifySetting($zoneID)
     {
@@ -55,25 +35,6 @@ class ZoneSettings implements API
 
         return false;
     }
-	
-	
-	
-	public function GetBrotliSetting($zoneID)
-    {
-        $return = $this->adapter->get(
-            'zones/' . $zoneID . '/settings/brotli'
-        );
-        $body   = json_decode($return->getBody());
-
-        if ($body->success) {
-            return $body->result->value;
-        }
-
-        return false;
-    }
-	
-	
-	
 
     public function getRocketLoaderSetting($zoneID)
     {
@@ -158,31 +119,6 @@ class ZoneSettings implements API
 
         return false;
     }
-	
-	
-	//invokers waas1 patched start
-	public function updateEarlyHintsSetting($zoneID, $value)
-    {
-        $return = $this->adapter->patch(
-            'zones/' . $zoneID . '/settings/early_hints',
-            [
-                'value' => $value,
-            ]
-        );
-        $body   = json_decode($return->getBody());
-
-        if ($body->success) {
-            return true;
-        }
-
-        return false;
-    }
-	//invokers waas1 patched end
-
-	
-	
-	
-	
 
     public function updateBrowserCacheTtlSetting($zoneID, $value)
     {
@@ -221,26 +157,6 @@ class ZoneSettings implements API
 
         return false;
     }
-	
-	
-	public function updateBrotliSetting($zoneID, $value)
-    {
-        $return = $this->adapter->patch(
-            'zones/' . $zoneID . '/settings/brotli',
-            [
-                'value' => $value,
-            ]
-        );
-        $body   = json_decode($return->getBody());
-
-        if ($body->success) {
-            return true;
-        }
-
-        return false;
-    }
-	
-	
 
     public function updateRocketLoaderSetting($zoneID, $value)
     {

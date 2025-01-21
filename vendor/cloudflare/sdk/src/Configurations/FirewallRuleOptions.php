@@ -43,16 +43,4 @@ class FirewallRuleOptions implements Configurations
     {
         $this->configs['action'] = 'log';
     }
-	
-	//waas1 invokers edit starts
-	public function setActionManagedChallenge()
-    {
-        $this->configs['action'] = 'managed_challenge';
-    }
-	
-	public function setActionBypass()
-    {
-        $this->configs['action'] = 'bypass';
-    }
-	////waas1 invokers edit ends
 }
