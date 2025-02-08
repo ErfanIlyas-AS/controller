@@ -40,7 +40,7 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 	
 	$.ajax({
 		method: 'post',
-		url:'//ctrl-1.'+ROOT_DOMAIN_NAME+API_VERSION+'network/get-site-info/',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'network/get-site-info/',
 		data:data
 	}).done(function( results ) {
 		
@@ -143,7 +143,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 	
 	$.ajax({
 		method: 'post',
-		url:'//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+API_VERSION+'network/info/',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'network/info/',
 		data:{'user':'superduper',
 			  'key':API_KEY,
 			  'skip-primary-node':skipPrimaryNode,
