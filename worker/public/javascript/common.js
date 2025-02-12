@@ -82,15 +82,11 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 	
 			searchSiteListHtml += '<table class="table table-bordered table-hover table-sm mb-0"><thead class="table-success"><tr>';
 				searchSiteListHtml += '<th scope="col">#</th>';
-				searchSiteListHtml += '<th scope="col">Node-ID</th>';
 				searchSiteListHtml += '<th scope="col">Status</th>';
-				searchSiteListHtml += '<th scope="col" class="text-center">%</th>';
 				searchSiteListHtml += '<th scope="col">Order</th>';
 				searchSiteListHtml += '<th scope="col">Site-ID</th>';
 				searchSiteListHtml += '<th scope="col">Domain</th>';
 				searchSiteListHtml += '<th scope="col">Client email</th>';
-				searchSiteListHtml += '<th scope="col" class="text-center">WP</th>';
-				searchSiteListHtml += '<th scope="col" class="text-center">PHP</th>';
 				searchSiteListHtml += '<th scope="col">Restrict</th>';
 				searchSiteListHtml += '<th scope="col">Bandwidth / Unique / Page views</th>';
 				searchSiteListHtml += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
@@ -102,7 +98,7 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 						
 						searchSiteListHtml += '<tr class="searchNode'+record['node_id']+'site'+record['id']+'" data-node-id="'+record['node_id']+'" data-site-id="'+record['id']+'">';
 						searchSiteListHtml += '<th scope="row">'+searchSiteCounter+'</th>';
-						searchSiteListHtml += '<td class="text-center">'+record['node_id']+'</td>';
+						//searchSiteListHtml += '<td class="text-center">'+record['node_id']+'</td>';
 						searchSiteListHtml += '</tr>';
 						
 						//function get the site info
