@@ -32,7 +32,7 @@ class SessionStorage implements Service, SessionStorageInterface
         if (! $this->getSession()) {
             $handler = $config['handler'];
             $session = new Session($handler());
-            $session->setName('filegator');
+            //$session->setName('filegator');
 
             $this->setSession($session);
         }

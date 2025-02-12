@@ -1,5 +1,28 @@
 <?php
 
+
+//get the env file
+$envVarsFilePath = '/var/www/env-vars-controller.ini';
+if( !file_exists($envVarsFilePath) ) {
+  exit( 'Error: Please setup "env-vars-controller.ini" at /var/www/' );
+}
+$evnVars = parse_ini_file( $envVarsFilePath, false, INI_SCANNER_TYPED );
+
+preg_match( '/^([a-z0-9-]+)\.([a-z.]+)$/i', $evnVars['ROOT_DOMAIN_NAME'], $platformDomainMatches );
+$firstFourCharsDomain = substr( $platformDomainMatches[1], 0, 3 );
+$restOfCharsDomain = strrev( substr( $platformDomainMatches[1], 3 ) );
+$reversedDomainTLD = strrev( str_replace('.','',$platformDomainMatches[2]) );
+
+
+
+define( 'CLOUDFLARE_R2_ACCOUNT_ID',   $evnVars['CLOUDFLARE_R2_ACCOUNT_ID'] );
+define( 'CLOUDFLARE_R2_BUCKET',       $firstFourCharsDomain.$reversedDomainTLD.$restOfCharsDomain.'-fc' );
+define( 'CLOUDFLARE_R2_API_KEY',      $evnVars['CLOUDFLARE_R2_API_KEY'] );
+define( 'CLOUDFLARE_R2_API_VALUE_S3', $evnVars['CLOUDFLARE_R2_API_VALUE_S3'] );
+
+
+
+
 return [
     'public_path' => APP_PUBLIC_PATH,
     'public_dir' => APP_PUBLIC_DIR,
@@ -20,7 +43,7 @@ return [
         'default_archive_name' => 'archive.zip',
         'editable' => ['.txt', '.css', '.js', '.ts', '.html', '.php', '.json', '.md'],
         'date_format' => 'YY/MM/DD hh:mm:ss', // see: https://momentjs.com/docs/#/displaying/format/
-        'guest_redirection' => '', // useful for external auth adapters
+        'guest_redirection' => '/',
         'search_simultaneous' => 5,
         'filter_entries' => [],
     ],
@@ -92,9 +115,17 @@ return [
                 'separator' => '/',
                 'config' => [],
                 'adapter' => function () {
-                    return new \League\Flysystem\Adapter\Local(
-                        __DIR__.'/repository'
-                    );
+                    $client = new \Aws\S3\S3Client([
+                        'credentials' => [
+                            'key' => CLOUDFLARE_R2_API_KEY,
+                            'secret' => CLOUDFLARE_R2_API_VALUE_S3,
+                        ],
+                        'region' => 'us-east-1',
+                        'version' => 'latest',
+                        'endpoint' => 'https://'.CLOUDFLARE_R2_ACCOUNT_ID.'.r2.cloudflarestorage.com',
+                    ]);
+
+                    return new \League\Flysystem\AwsS3v3\AwsS3Adapter( $client, CLOUDFLARE_R2_BUCKET );
                 },
             ],
         ],
@@ -102,12 +133,20 @@ return [
             'handler' => '\Filegator\Services\Archiver\Adapters\ZipArchiver',
             'config' => [],
         ],
-        'Filegator\Services\Auth\AuthInterface' => [
-            'handler' => '\Filegator\Services\Auth\Adapters\JsonFile',
-            'config' => [
-                'file' => __DIR__.'/private/users.json',
-            ],
+       'Filegator\Services\Auth\AuthInterface' => [
+          'handler' => '\Filegator\Services\Auth\Adapters\WPSPAuth',
+          'config' => [
+              'wp_dir' => '/var/www/my_wordpress_site/',
+              'permissions' => ['read', 'write', 'upload', 'download', 'batchdownload', 'zip'],
+              'private_repos' => false,
+          ],
         ],
+        //'Filegator\Services\Auth\AuthInterface' => [
+        //    'handler' => '\Filegator\Services\Auth\Adapters\JsonFile',
+        //    'config' => [
+        //        'file' => __DIR__.'/private/users.json',
+        //    ],
+        //],
         'Filegator\Services\Router\Router' => [
             'handler' => '\Filegator\Services\Router\Router',
             'config' => [
