@@ -85,6 +85,7 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 				searchSiteListHtml += '<th scope="col">Status</th>';
 				searchSiteListHtml += '<th scope="col">Order</th>';
 				searchSiteListHtml += '<th scope="col">Site-ID</th>';
+        searchSiteListHtml += '<th scope="col">DB-ID</th>';
 				searchSiteListHtml += '<th scope="col">Domain</th>';
 				searchSiteListHtml += '<th scope="col">Client email</th>';
 				searchSiteListHtml += '<th scope="col">Restrict</th>';
@@ -135,6 +136,102 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 
 
 
+
+
+function getAllNodesDB( $, withInfoResource='false' ){
+  
+  $.ajax({
+    
+    method: 'post',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'network/db-info/',
+		data:{'user':'superduper',
+			  'key':API_KEY,
+			  'with-info-resource':withInfoResource,
+			}
+  }).done(function( results, textStatus, xhr ) {
+    
+    
+      
+    if (xhr.status === 200) {
+        
+      var counter = 1;
+      $.each( results.data, function(index, record) {
+      
+        var nodeNameDB      = 'DB-'+record['node-db-id'];
+        var nodeCpuUsedDB 	= record['resoruces']['dbServerCpuUsed'];
+        var nodeCpuTotalDB 	= record['resoruces']['dbServerCpuTotal'];
+        
+        var nodeMemoryUsedDB 		= record['resoruces']['dbServerMemoryUsed'];
+        var nodeMemoryTotalDB 	= record['resoruces']['dbServerMemoryTotal'];
+        
+        var nodeDiskUsedDB 	= record['resoruces']['dbServerDiskUsed'];
+        var nodeDiskTotalDB 	= record['resoruces']['dbServerDiskTotal'];
+        
+        var nodeBandwidthUsedCombinedDB = record['resoruces']['dbServerBandwidthUsed'];
+        
+        
+        var html = '<tr>';
+          html += '<td><span class="badge bg-light">'+counter+'</span></td>';
+          html += '<td><span class="badge bg-dark">'+nodeNameDB+'</span></td>';
+          
+          html += '<td>';
+            html += '<span class="badge bg-light">'+record['node-db-public-ipv4']+'</span>';
+          html += '</td>';
+          
+          html += '<td>';
+            html += '<span class="badge bg-dark">'+record['node-db-private-ipv4']+'</span>';
+          html += '</td>';
+          
+          html += '<td>';
+            html += '<span class="badge bg-info">'+nodeCpuUsedDB+'/'+nodeCpuTotalDB+'</span>';
+          html += '</td>';
+          
+          html += '<td>';
+            html += '<span class="badge bg-info">'+nodeMemoryUsedDB+'G/'+nodeMemoryTotalDB+'G</span>';
+          html += '</td>';
+          
+          html += '<td>';
+            html += '<span class="badge bg-info">'+nodeDiskUsedDB+'/'+nodeDiskTotalDB+'</span>';
+          html += '</td>';
+          
+          html += '<td class="text-center"><span class="badge bg-light">'+nodeBandwidthUsedCombinedDB+'G</span></td>';
+          
+          
+          html += '<td class="d-flex justify-content-end pe-3">';
+            html += '<a class="btn btn-link btn-sm btnRemoveNodeDB" data-node-id="'+nodeNameDB+'"><i class="fas fa-trash text-danger"></i></a>';
+          html += '</td>';
+          
+        html += '</tr>';
+        
+        
+        
+        
+        
+        $( "#injectNodeDataDB" ).append( html );
+        
+        counter++;
+      });
+    }else{
+      $("#additionalDBServersWrapperInner1").html(
+        '<p class="m-0 p-3 text-center">' +
+        'No additional database servers found. You can create more database servers depending on your license. ' +
+        'For optimal performance, it\'s recommended to host a maximum of 1,000 sites on a single database server. ' +
+        'To add more servers, click the button below.' +
+        '</p>'
+      );
+    }
+		
+    
+  }).always(function(){
+		$('#loadingDivNodeListDB').hide();
+	});
+  
+}//getAllNodesDB
+
+
+
+
+
 function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' ){
 	
 	$.ajax({
@@ -146,7 +243,8 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 			  'with-info-resource':withInfoResource,
 			}
 	}).done(function( results ) {
-		
+    
+
 		var counter = 1;
 		$.each( results.data, function(index, record) {
 			
@@ -157,6 +255,9 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 			var nodeId = record['node_id'];
 			var nodeName = 'ctrl-'+record['node_id'];
 			var nodeTotalSites = record['total_sites'];
+      
+      var appServerPublicIp 	= record['publicip'];
+      var appServerPrivateIp 	= record['privateip'];
 			
 			var appServerCpuUsed 	= record['app_server_cpu_used'];
 			var appServerCpuTotal 	= record['app_server_cpu_total'];
@@ -179,8 +280,10 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 		  
 		  
 			var html = '<tr>';
+      
+      
 				html += '<td><span class="badge bg-light">'+counter+'</span></td>';
-				html += '<td><span class="badge bg-light">'+nodeName+'</span></td>';
+				//html += '<td><span class="badge bg-light">'+nodeName+'</span></td>';
 				
 				html += '<td>';
 					html += '<span class="badge bg-success">'+appServerCpuUsed+'/'+appServerCpuTotal+'</span> ';
@@ -203,7 +306,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 				
 				html += '<td class="text-center"><span class="badge bg-light">'+record['THIS_CONTROLLER_PROVIDER_NAME']+'</span></td>';
 				
-				html += '<td>';
+				html += '<td class="d-flex justify-content-end pe-3">';
 				  html += '<div class="btn-group">';
 				    html += '<a class="btn btn-primary btn-sm btnCreateNewSite" data-node-id="'+nodeId+'">Create new site</a>';
 					html += '<a class="btn btn-warning btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">more</a>';
@@ -222,9 +325,92 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 					html += '</ul>';
 				  html += '</div>';
 				html += '</td>';
-				
-				
 			html += '</tr>';
+      
+      
+      
+      if( record['autoscale_server_created'] ){
+        
+        html += '<tr>';
+          html += '<td colspan="8" class="text-center">';
+            html += '<span class="badge bg-warning">Following Server(s) were automatically created.</span>';
+          html += '</td>';
+        html += '</tr>';
+        
+        
+        var autoScaleServerCounter = 1;
+        $.each( record['autoscale_server_data'], function(index, record) {
+          html += '<tr>';
+            
+            html += '<td class="text-center">';
+              html += '<span class="badge bg-light">'+autoScaleServerCounter+'</span>';
+            html += '</td>';
+            
+            html += '<td class="text-center">';
+              html += '<span class="badge bg-light">Created: '+record['createdTimeSince']+'</span>';
+            html += '</td>';
+
+            html += '<td class="text-center">';
+              html += '<span class="badge bg-light">(primary) '+appServerPublicIp+' <-> (public) '+record['publicip']+'</span>';
+            html += '</td>';
+            
+            html += '<td class="text-center">';
+              html += '<span class="badge bg-light">(primary) '+appServerPrivateIp+' <-> (private) '+record['privateip']+'</span>';
+            html += '</td>';
+            
+            html += '<td class="text-center">';
+              html += '<span class="badge bg-light">(CPU) '+record['appServerCpuUsed']+'/'+record['appServerCpuTotal']+'</span>';
+            html += '</td>';
+            
+            html += '<td colspan="2" class="text-center">';
+              html += '<span class="badge bg-light">(RAM) '+record['appServerMemoryUsed']+'G/'+record['appServerMemoryTotal']+'G<span>';
+            html += '</td>';
+            
+            html += '<td class="d-flex justify-content-end pe-3">';
+              html += '<a class="btn btn-link btn-sm btnRemoveAutoScaledServer"><i class="fas fa-trash text-danger"></i></a>';
+            html += '</td>';
+            
+            
+          html += '</tr>';
+          
+          autoScaleServerCounter++;
+        });
+
+        
+        
+        
+        //html += '<tr><td colspan="8">';
+        //html += '<table id="autoScaledServersList" class="table table-bordered table-hover table-sm table-light"><thead><tr>';
+        //html += '<th scope="col">#</th>';
+        //html += '<th scope="col">Status</th>';
+        //html += '<th scope="col">Order-ID</th>';
+        //html += '<th scope="col">Site-ID</th>';
+        //html += '<th scope="col">DB-ID</th>';
+        //html += '<th scope="col">Domain</th>';
+        //html += '<th scope="col">Client email</th>';
+        //html += '<th scope="col">Restrict-ID</th>';
+        //html += '<th scope="col">Bandwidth / Unique / Page views</th>';
+        //html += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
+        //html += '<th scope="col">Actions</th>';
+        //html += '</tr></thead><tbody>';
+        
+        //$.each( record['autoscale_server_data'], function(index, record) {
+        //});
+        
+        //html += '</tbody></table>';
+        //html += '</td></tr>';
+        
+        
+      }else{
+        html += '<tr>';
+          html += '<td colspan="8" class="text-center">';
+          html += '<span class="badge bg-light">No auto scaling server found</span>';
+          html += '</td>';
+        html += '</tr>';
+      }
+      
+      
+      
 
 			$( "#injectNodeData" ).append( html );
 			
@@ -233,7 +419,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 			var siteIdList = record['site_data'];
 			
 			var siteListHtml = '<div class="bg-white p-1 pt-2 mb-3 rounded wrapperSiteList'+nodeName+'">';
-				siteListHtml += '<h5 id="node'+nodeId+'-ctrl-heading">'+nodeName+' site list</h5>';
+				//siteListHtml += '<h5 id="node'+nodeId+'-ctrl-heading">'+nodeName+' site list</h5>';
 				siteListHtml += '<div class="nodeSiteListTableInject">';
 				
 					siteListHtml += '<table data-node-id="'+nodeId+'" data-node-name="'+nodeName+'" id="node'+nodeId+'-SiteListTable" class="table table-bordered table-hover table-sm mb-0"><thead class="table-success"><tr>';
@@ -241,6 +427,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 						siteListHtml += '<th scope="col">Status</th>';
 						siteListHtml += '<th scope="col">Order-ID</th>';
 						siteListHtml += '<th scope="col">Site-ID</th>';
+            siteListHtml += '<th scope="col">DB-ID</th>';
 						siteListHtml += '<th scope="col">Domain</th>';
 						siteListHtml += '<th scope="col">Client email</th>';
 						siteListHtml += '<th scope="col">Restrict-ID</th>';
@@ -351,11 +538,12 @@ function newSiteFormSubmit( $ ){
 	
 	showLoadingButtonMessage( $, false, '#newSiteButtonSubmit', 'working....' );
 	
-	var newSiteNode = $( '#newSiteNode' ).val();
+	//var newSiteNode = $( '#newSiteNode' ).val();
+  var newSiteDB = $( '#newSiteDB' ).val();
 	var newSiteEmail = $( '#newSiteEmail' ).val();
 	var newSiteSubdomain = $( '#newSiteSubdomain' ).val();
 	
-	var paramteres = { 'user':'superduper', 'key':API_KEY, 'node-id':newSiteNode, 'client-email':newSiteEmail };
+	var paramteres = { 'user':'superduper', 'key':API_KEY, 'client-email':newSiteEmail, 'node-db-id':newSiteDB };
 	
 	//optional paramaters:
 	var newSiteSubdomain = $( '#newSiteSubdomain' ).val();
@@ -424,7 +612,7 @@ function newSiteFormSubmit( $ ){
 	
 	$.ajax({
 		method: 'post',
-		url:'//ctrl-'+newSiteNode+'.'+ROOT_DOMAIN_NAME+API_VERSION+'site/new/',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'site/new/',
 		data:paramteres,
 		dataType : 'json'
 	}).always(function (){
@@ -473,7 +661,7 @@ function newSiteFormSubmit( $ ){
 
 function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 	
-	paramters = { 'user':'superduper', 'key':API_KEY, 'node-id':ctrl, 'site-id':siteId };
+	paramters = { 'user':'superduper', 'key':API_KEY, 'site-id':siteId };
 	
 	if( selectIdElement == '#injectFormBuilderWrapper' ){
 		paramters['with-injection-placeholders'] = 'true';
@@ -481,7 +669,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 	
 	return $.ajax({
 		method: 'post',
-		url:'//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
 		data:paramters
 	}).done(function( results ) {
     
@@ -511,8 +699,10 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				$( '.'+trClass ).append( '<td>'+firstRecord['unique_order_id']+'</td>' );
 			}
 			
+
 			
 			$( '.'+trClass ).append( '<td>'+firstRecord['id']+'</td>' );
+      $( '.'+trClass ).append( '<td class="text-center">'+firstRecord['node_db_id']+'</td>' );
 			
 			$( '.'+trClass ).append( '<td><a class="text-decoration-none" href="https://'+firstRecord['domain']+'/" target="_blank">'+firstRecord['domain']+' <small><i class="fas fa-external-link-alt"></i></small></a> | <a class="text-decoration-none" href="https://'+firstRecord['domain']+'/wp-admin/" target="_blank"><small><i class="fas fa-columns"></i></small></a></td>' );
 			
@@ -549,7 +739,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				html += '</div>';
 				
 				
-				html += '<a class="btn btn-link btn-sm actionDeleteSite" href="#"><i class="fas fa-trash"></i></i></a>';
+				html += '<a class="btn btn-link btn-sm actionDeleteSite" href="#"><i class="fas fa-trash text-danger"></i></i></a>';
 				html += '</td>';
 			}
 			$( '.'+trClass ).append( html );

@@ -12,6 +12,7 @@ jQuery( document ).ready(function( $ ) {
 	
 	
 	getAllNodes( $, '1', 'false', 'true' );
+  getAllNodesDB( $, 'true' );
 
 	
 	//show api key
@@ -20,6 +21,62 @@ jQuery( document ).ready(function( $ ) {
 		$( this ).hide();
 		$( '#showAPiKey' ).show();
 	});
+  
+  
+  $( '#actionShowAdditionalDBServers' ).click(function( e ){
+		e.preventDefault();
+		$( '#additionalDBServersWrapperInner' ).slideToggle();
+    $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+	});
+  
+  
+  
+
+  //dynamic onclick .btnRemoveNodeDB
+	$( '#additionalDBServersWrapperInner' ).on("click", '.btnRemoveNodeDB', function( e ) { 
+		e.preventDefault();
+    
+    swalWithBootstrapButtons.fire({
+        title: 'Important Notice',
+        text: 'To delete this database server, please contact your Administrator. Make sure you have deleted all WordPress sites using this database server.',
+        icon: 'warning',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        customClass: {
+            popup: 'text-center',
+            closeButton: 'btn-danger'
+        },
+        footer: '<button class="btn btn-danger" onclick="swal.close()">Close</button>'
+    });
+    
+	});
+  
+  
+  
+  
+  //dynamic onclick .btnRemoveNodeDB
+	$( '#injectNodeData' ).on("click", '.btnRemoveAutoScaledServer', function( e ) { 
+		e.preventDefault();
+    
+    swalWithBootstrapButtons.fire({
+        title: 'Important Notice',
+        text: 'Forcibly removing an auto-scaled server is not supported at this time.',
+        icon: 'warning',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        customClass: {
+            popup: 'text-center',
+            closeButton: 'btn-danger'
+        },
+        footer: '<button class="btn btn-danger" onclick="swal.close()">Close</button>'
+    });
+    
+	});
+  
+  
+  
+  
+  
 	
 	
 	$( '#wrapperSearchSiteList' ).on("click", '#actionCloseSearchResults', function( e ) { 
@@ -30,8 +87,51 @@ jQuery( document ).ready(function( $ ) {
 	
 	
 	
-	
-	
+
+
+
+
+
+  $( '#actionAddAdditionalDBServers' ).click(function( e ){
+		e.preventDefault();
+    $(this).addClass( 'disabled' ).html( '<i class="fas fa-spinner fa-spin me-1"></i> Working...' );
+    
+    
+    $.ajax({
+    
+      method: 'post',
+      url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'network/add-db-node/',
+      data:{'user':'superduper',
+          'key':API_KEY,
+        }
+    }).done(function( result ) {
+      
+      console.log(result );
+      
+      swalWithBootstrapButtons.fire({
+        title: 'successfully queued',
+        text: result.msg,
+        icon: 'success', confirmButtonText: 'Got it!', showConfirmButton: true,
+      });
+    
+      
+    }).fail(function( result ) {
+      
+      swalWithBootstrapButtons.fire({
+        text: result.responseJSON.errorMsg, icon: 'error', showCancelButton: true, cancelButtonText: 'Dismiss', showConfirmButton: false,
+      });
+
+    }).always(function(){
+      $('#actionAddAdditionalDBServers').removeClass( 'disabled' ).html( '<i class="fas fa-plus"></i> Add Additional Database Server' );
+    });
+  
+  
+	});
+  
+  
+  
+  
+  
 	
 	
 	//search network start
