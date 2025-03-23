@@ -23,6 +23,27 @@ jQuery( document ).ready(function( $ ) {
 	});
   
   
+  $( '#actionShowR2APiEndpoint' ).click(function( e ){
+		e.preventDefault();
+		$( this ).hide();
+		$( '#showR2APiEndpoint' ).show();
+	});
+  
+  
+  $( '#actionShowR2APiKey' ).click(function( e ){
+		e.preventDefault();
+		$( this ).hide();
+		$( '#showR2APiKey' ).show();
+	});
+  
+  
+  $( '#actionShowR2APiSecret' ).click(function( e ){
+		e.preventDefault();
+		$( this ).hide();
+		$( '#showR2APiSecret' ).show();
+	});
+  
+  
   $( '#actionShowAdditionalDBServers' ).click(function( e ){
 		e.preventDefault();
 		$( '#additionalDBServersWrapperInner' ).slideToggle();
