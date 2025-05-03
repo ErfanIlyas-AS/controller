@@ -18,7 +18,7 @@ use Filegator\Services\Service;
 /**
  * @codeCoverageIgnore
  */
-class WPSPAuth implements Service, AuthInterface
+class WPPAAuth implements Service, AuthInterface
 {
 
     protected $permissions = [];

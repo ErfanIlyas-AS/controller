@@ -134,7 +134,7 @@ return [
             'config' => [],
         ],
        'Filegator\Services\Auth\AuthInterface' => [
-          'handler' => '\Filegator\Services\Auth\Adapters\WPSPAuth',
+          'handler' => '\Filegator\Services\Auth\Adapters\WPPAAuth',
           'config' => [
               'wp_dir' => '/var/www/my_wordpress_site/',
               'permissions' => ['read', 'write', 'upload', 'download', 'batchdownload', 'zip'],
