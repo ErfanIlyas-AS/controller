@@ -215,7 +215,7 @@ jQuery( document ).ready(function( $ ) {
 		
 		swalWithBootstrapButtons.fire({
 		  icon: 'warning',
-		  title: 'Delete site ID: '+selectedSiteId+' on node ID: '+selectedNodeId,
+		  title: 'Delete site ID: '+selectedSiteId,
 		  text: 'Are you sure you want to delete this site.',
 		  buttonsStyling: false,
 		  showCancelButton: true,
@@ -709,7 +709,7 @@ jQuery( document ).ready(function( $ ) {
 		
 		swalWithBootstrapButtons.fire({
 		  icon: 'warning',
-		  title: 'Do you want to activate site ID: '+selectedSiteId+' on node ID: '+selectedNodeId,
+		  title: 'Do you want to activate site ID: '+selectedSiteId,
 		  text: 'This will activate the site and all the background tasks will be resumed.',
 		  buttonsStyling: false,
 		  showCancelButton: true,
@@ -756,7 +756,7 @@ jQuery( document ).ready(function( $ ) {
 		
 		swalWithBootstrapButtons.fire({
 		  icon: 'warning',
-		  title: 'Do you want to disable site ID: '+selectedSiteId+' on node ID: '+selectedNodeId,
+		  title: 'Do you want to disable site ID: '+selectedSiteId,
 		  text: 'This will not remove the site but all the background tasks will stop working including Cron Jobs and Backups.',
 		  buttonsStyling: false,
 		  showCancelButton: true,
