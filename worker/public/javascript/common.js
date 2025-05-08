@@ -216,7 +216,8 @@ function getAllNodesDB( $, withInfoResource='false' ){
         '<p class="m-0 p-3 text-center">' +
         'No additional database servers found. You can create more database servers depending on your license. ' +
         'For optimal performance, it\'s recommended to host a maximum of 1,000 sites on a single database server. ' +
-        'To add more servers, click the button below.' +
+        'To add more servers, click the button below. ' +
+        '<span class="text-danger">Note: Your license allows you to add maximum of '+LICENSE_AS_MAX_DB_NODES+' Database server(s).</span>' +
         '</p>'
       );
     }
