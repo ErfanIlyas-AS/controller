@@ -1,63 +1,58 @@
-<?php //002cd
-if(extension_loaded('ionCube Loader')){die('The file '.__FILE__." is corrupted.\n");}echo("\nScript error: the ".(($cli=(php_sapi_name()=='cli')) ?'ionCube':'<a href="https://www.ioncube.com">ionCube</a>')." Loader for PHP needs to be installed.\n\nThe ionCube Loader is the industry standard PHP extension for running protected PHP code,\nand can usually be added easily to a PHP installation.\n\nFor Loaders please visit".($cli?":\n\nhttps://get-loader.ioncube.com\n\nFor":' <a href="https://get-loader.ioncube.com">get-loader.ioncube.com</a> and for')." an instructional video please see".($cli?":\n\nhttp://ioncu.be/LV\n\n":' <a href="http://ioncu.be/LV">http://ioncu.be/LV</a> ')."\n\n");exit(199);
+<?php
+if(!defined('DIRECTACCESS'))   die('Direct access not permitted'); //add this to every file included.
+
+$filterOptionsArray = array(
+  'PLATFORM_BRAND_NAME', 'PLATFORM_BRAND_SITE_URL', 'PLATFORM_BRAND_LOGO_URL',
+);
+$brandOptions = getMainWpControllerDetails( $filterOptionsArray );
 ?>
-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
-k1HQ3tEwWz0fBEzCmsTetwi5IhNk294n
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 py-1 justify-content-between">
+
+	<a class="navbar-brand" href="/index.php">
+		<img src="<?php echo $brandOptions['PLATFORM_BRAND_LOGO_URL']?>" class="d-inline-block me-1" width="200" />
+	</a>
+	
+	
+	<button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+	
+	
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+		<form id="actionSearchNetwork" class="form">
+			<div class="input-group">
+				<select id="searchType" class="form-select" required="required">
+					<option value="domain" selected>Domain</option>
+					<option value="client-email">Client email</option>
+					<option value="unique-order-id">Order ID</option>
+					<option value="site-id">Site ID</option>
+					<option value="client-saas-member-id">SaaS member ID</option>
+				</select>
+				<input id="searchQuery" class="input-group form-control form-control-sm" type="search" placeholder="Query" required="required">
+				<button class="btn btn-primary" type="submit" id="searchButton">Search</button>
+			</div>
+		</form>
+		
+		
+		<ul class="navbar-nav mr-auto ms-2">
+			<li class="nav-item">
+				<a class="btn btn-md btn-outline-primary <?php echo ( $currentPage == 'view-options' ) ? 'active':''; ?>" href="/index.php?task=view-options" target="_blank">Options</a>
+			</li>
+		</ul>
+
+	</div>
+	
+	
+	<form class="form-inline">
+		<a class="btn btn-sm btn-outline-primary" href="/filegator/" target="_blank">WP Object Store <small><i class="ms-1 fas fa-external-link-alt"></i></small></a>
+	</form>
+	<form class="form-inline">
+		<a class="btn btn-sm btn-outline-primary ms-2" href="/login.php">Logout <small><i class="ms-1 fas fa-sign-out-alt"></i></small></a>
+	</form>
+	
+	
+</nav>
