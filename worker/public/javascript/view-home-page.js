@@ -385,7 +385,7 @@ jQuery( document ).ready(function( $ ) {
 			$( "#injectSiteBackupData" ).html( html );
 			
 			//inject website name
-			$( '#injectTextTitleBackupRestore' ).html( 'Backups of site: <a class="text-decoration-none" href="https://'+apiData.domain+'" traget="_blank">'+apiData.domain+' <small><i class="fas fa-external-link-alt"></i></small></a>' );
+			$( '#injectTextTitleBackupRestore' ).html( 'Backups of site: <a class="text-decoration-none" href="https://'+apiData.domain+'" target="_blank">'+apiData.domain+' <small><i class="fas fa-external-link-alt"></i></small></a>' );
 			
 			
 			//hide the loading div
@@ -440,7 +440,7 @@ jQuery( document ).ready(function( $ ) {
 			$( '#updateSiteRestrictionGroupId' ).val( results['restrictions_group'] ).change();
 			
 			//inject website name
-			$( '#injectTextTitleUpdateSite' ).html( 'Update site: <a class="text-decoration-none" href="https://'+results.domain+'" traget="_blank">'+results.domain+' <small><i class="fas fa-external-link-alt"></i></small></a>' );
+			$( '#injectTextTitleUpdateSite' ).html( 'Update site: <a class="text-decoration-none" href="https://'+results.domain+'" target="_blank">'+results.domain+' <small><i class="fas fa-external-link-alt"></i></small></a>' );
 			
 			//inject user in password protectoin field:
 			$( '#updatePasswordProtectionUser' ).html( 'site'+results['site_id'] );
@@ -457,6 +457,52 @@ jQuery( document ).ready(function( $ ) {
 		
 	});
 	//dynamic onclick actionUpdateSite ends
+  
+  
+  
+  
+  
+  
+  //dynamic onclick actionCheckCFStatus starts
+	$( '#wrapperSiteList, #wrapperSearchSiteList' ).on( 'click', '.actionCheckCFStatus', async function( e ) {
+		e.preventDefault();
+		
+		var selectedSiteId = $(this).closest('tr').data('site-id');
+    
+    
+		//show modal popup
+		$('#modalCheckCFStatus').modal('show');
+		
+		getCFStatus( $, selectedSiteId ).done( function( apiData ){
+      
+			var results = apiData.data[0];
+			
+			console.log( results );
+      
+      //inject website name
+			$( '#modalCheckCFStatus .injectTextTitle' ).html( 'CloudFlare Status for site: <a class="text-decoration-none" href="https://'+results.domain+'" target="_blank">'+results.domain+' <small><i class="fas fa-external-link-alt"></i></small></a>' );
+			
+			$( '#modalCheckCFStatus .domainStatus' ).html( results.cf_name_servers.domain_active_status );
+      
+			$( '#modalCheckCFStatus .domainCF1' ).html( results.cf_name_servers.name_servers[0] );
+			$( '#modalCheckCFStatus .domainCF2' ).html( results.cf_name_servers.name_servers[1] );
+			
+			$( '#modalCheckCFStatus .domainOR1' ).html( results.cf_name_servers.original_name_servers[0] );
+			$( '#modalCheckCFStatus .domainOR2' ).html( results.cf_name_servers.original_name_servers[1] );
+			
+			//hide the loading div
+			$( '.modalLoadingDivWrapper' ).slideUp();
+			
+			//show form
+			$( '#modalCheckCFStatus .modal-body' ).slideDown();
+		});
+		
+		
+		
+	});
+	//dynamic onclick actionCheckCFStatus ends
+  
+  
 
 	
 	

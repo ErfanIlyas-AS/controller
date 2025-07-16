@@ -723,9 +723,11 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				
 				html += '<div class="btn-group me-4">';
 				
-					html += '<a class="btn btn-outline-warning btn-sm actionLoginAsUser" href="#"><i class="fas fa-key"></i></a>';
-					html += '<a class="btn btn-outline-warning btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';
-					html += '<a class="btn btn-danger btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></a>';
+					html += '<a class="btn btn-outline-dark btn-sm actionLoginAsUser" href="#"><i class="fas fa-key"></i></a>';
+					html += '<a class="btn btn-outline-dark btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';
+          html += '<a class="btn btn-outline-dark btn-sm actionCheckCFStatus" href="#"><i class="fas fa-cloud"></i></a>';
+          
+					html += '<a class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></a>';
 						html += '<div class="dropdown-menu">';
 							html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=wp-errors" target="_blank">View Log - Error</a>';
 							//html += '<a class="dropdown-item" href="//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+'/?task=view_php_error_log&site-id='+firstRecord['id']+'&key='+encKey+'&log=php-slow" target="_blank">View Log - Slow</a>';
@@ -820,6 +822,18 @@ function getNodeInfo($, ctrl, maxPageResults='100', showPage='1' ){
 		url:'//ctrl-'+ctrl+'.'+ROOT_DOMAIN_NAME+API_VERSION+'node/info/',
 		data:paramters
 	});
+}
+
+
+function getCFStatus( $, siteId ){
+  
+  paramters = { 'user':'superduper', 'key':API_KEY, 'site-id':siteId, 'with-cf-name-servers':true };
+  return $.ajax({
+		method: 'post',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
+		data:paramters
+	});
+  
 }
 
 
