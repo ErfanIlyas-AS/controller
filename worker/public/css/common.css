@@ -62,3 +62,31 @@ div.dataTables_paginate ul.pagination {
     white-space: nowrap;
     justify-content: flex-end;
 }
+
+
+
+#wrapperSiteList .nodeSiteListTableInject th,
+#mainTopWrapper1div th{
+  font-weight: normal;
+}
+
+
+.btn-link{
+  color: #000;
+}
+
+tr.autoScaledServers{
+  background-color: #38000008;
+}
+
+
+
+.page-item.disabled .page-link{
+  background-color: #38000008;
+  color: #2C3E50;
+}
+
+
+.page-item.active .page-link{
+  background-color: #2C3E50;
+}

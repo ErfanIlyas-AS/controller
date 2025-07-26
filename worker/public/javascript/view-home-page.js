@@ -51,6 +51,13 @@ jQuery( document ).ready(function( $ ) {
 	});
   
   
+  $( '#actionShowAdditionalInfo' ).click(function( e ){
+		e.preventDefault();
+		$( '#additionalInfoWrapperInner' ).slideToggle();
+    $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+	});
+  
+  
   
 
   //dynamic onclick .btnRemoveNodeDB
@@ -196,10 +203,11 @@ jQuery( document ).ready(function( $ ) {
 	$( '#nodeList' ).on("click", '.btnCreateNewSite', function( e ) { 
 		e.preventDefault();
 		$('#modalCreateNewSite').modal('show'); //show modal
-		
-		var selectedNodeId = $(this).data('node-id');
-		
-		$('#newSiteNode').val( selectedNodeId ).change();
+	});
+  
+  $( '.btnCreateNewSite' ).click(function( e ){
+		e.preventDefault();
+		$('#modalCreateNewSite').modal('show'); //show modal
 	});
 	
 	
@@ -234,7 +242,9 @@ jQuery( document ).ready(function( $ ) {
 			});
 			
 			removeSite( $, selectedNodeId, selectedSiteId ).done( function(){
-				location.reload();
+				setTimeout(function() {
+						location.reload();
+				}, 5000);
 			});
 			
 		  }
@@ -360,7 +370,7 @@ jQuery( document ).ready(function( $ ) {
 		getSiteBackups( $, selectedNodeId, selectedSiteId ).done( function( apiData ){
 			
 			html += '<h6 class="text-center">Backup list</h6>';
-			html += '<table class="table table-bordered table-hover table-sm" data-node-id="'+selectedNodeId+'" data-site-id="'+selectedSiteId+'"><thead class="table-success"><tr>';
+			html += '<table class="table table-bordered table-hover table-sm" data-node-id="'+selectedNodeId+'" data-site-id="'+selectedSiteId+'"><thead class="table-dark"><tr>';
 					html += '<th scope="col">#</th>';
 					html += '<th scope="col">Date [nonce]</th>';
 					html += '<th scope="col">Backup Entities</th>';

@@ -80,17 +80,17 @@ function searchNetwork( $, searchDomain=null, searchOrderId=null, searchClientEm
 		searchSiteListHtml += '</div>';
 		searchSiteListHtml += '<div class="serachSiteListTableInject">';
 	
-			searchSiteListHtml += '<table class="table table-bordered table-hover table-sm mb-0"><thead class="table-success"><tr>';
+			searchSiteListHtml += '<table class="table table-bordered table-hover table-sm mb-0"><thead class="table-dark"><tr>';
 				searchSiteListHtml += '<th scope="col">#</th>';
 				searchSiteListHtml += '<th scope="col">Status</th>';
-				searchSiteListHtml += '<th scope="col">Order</th>';
+				searchSiteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Order</th>';
 				searchSiteListHtml += '<th scope="col">Site-ID</th>';
-        searchSiteListHtml += '<th scope="col">DB-ID</th>';
+        searchSiteListHtml += '<th scope="col" class="d-none d-lg-table-cell">DB-ID</th>';
 				searchSiteListHtml += '<th scope="col">Domain</th>';
 				searchSiteListHtml += '<th scope="col">Client email</th>';
-				searchSiteListHtml += '<th scope="col">Restrict</th>';
-				searchSiteListHtml += '<th scope="col">Bandwidth / Unique / Page views</th>';
-				searchSiteListHtml += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
+				searchSiteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Restrict</th>';
+				//searchSiteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Bandwidth / Unique / Page views</th>';
+				//searchSiteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Storage - <small>APP DB (Inodes)</small></th>';
 				searchSiteListHtml += '<th scope="col">Actions</th>';
 				searchSiteListHtml += '</tr></thead><tbody>';
 		
@@ -287,17 +287,17 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 				//html += '<td><span class="badge bg-light">'+nodeName+'</span></td>';
 				
 				html += '<td>';
-					html += '<span class="badge bg-success">'+appServerCpuUsed+'/'+appServerCpuTotal+'</span> ';
+					html += '<span class="badge bg-light">'+appServerCpuUsed+'/'+appServerCpuTotal+'</span> ';
 					html += '<span class="badge bg-info">'+dbServerCpuUsed+'/'+dbServerCpuTotal+'</span>';
 				html += '</td>';
 				
 				html += '<td>';
-					html += '<span class="badge bg-success">'+appServerMemoryUsed+'G/'+appServerMemoryTotal+'G</span> ';
+					html += '<span class="badge bg-light">'+appServerMemoryUsed+'G/'+appServerMemoryTotal+'G</span> ';
 					html += '<span class="badge bg-info">'+dbServerMemoryUsed+'G/'+dbServerMemoryTotal+'G</span>';
 				html += '</td>';
 				
 				html += '<td>';
-					html += '<span class="badge bg-success">'+appServerDiskUsed+'/'+appServerDiskTotal+'</span> ';
+					html += '<span class="badge bg-light">'+appServerDiskUsed+'/'+appServerDiskTotal+'</span> ';
 					html += '<span class="badge bg-info">'+dbServerDiskUsed+'/'+dbServerDiskTotal+'</span>';
 				html += '</td>';
 
@@ -309,8 +309,8 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 				
 				html += '<td class="d-flex justify-content-end pe-3">';
 				  html += '<div class="btn-group">';
-				    html += '<a class="btn btn-primary btn-sm btnCreateNewSite" data-node-id="'+nodeId+'">Create new site</a>';
-					html += '<a class="btn btn-warning btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">more</a>';
+				    //html += '<a class="btn btn-primary btn-sm btnCreateNewSite" data-node-id="'+nodeId+'">Create new site</a>';
+					html += '<a class="btn btn-warning btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown">Actions </a>';
 					html += '<ul class="dropdown-menu">';
             html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.3">PHP8.3-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-opcache&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Opcache <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
@@ -319,10 +319,14 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
             html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.3">PHP8.3-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><hr class="dropdown-divider"></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=GIT_FETCH_DEPLOY_FROM_CTRL&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Git Fetch & Deploy <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-					  html += '<li><hr class="dropdown-divider"></li>';
-					  html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=RELOAD_ALL_SERVICES&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Reload All Services <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+            
+					  //html += '<li><hr class="dropdown-divider"></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=GIT_FETCH_DEPLOY_FROM_CTRL&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Git Fetch & Deploy <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+            
+					  //html += '<li><hr class="dropdown-divider"></li>';
+					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=RELOAD_ALL_SERVICES&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Reload All Services <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
+            
+            
 					html += '</ul>';
 				  html += '</div>';
 				html += '</td>';
@@ -332,38 +336,39 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
       
       if( record['autoscale_server_created'] ){
         
+        /*
         html += '<tr>';
           html += '<td colspan="8" class="text-center">';
             html += '<span class="badge bg-warning">Following Server(s) were automatically created.</span>';
           html += '</td>';
         html += '</tr>';
-        
+        */
         
         var autoScaleServerCounter = 1;
         $.each( record['autoscale_server_data'], function(index, record) {
-          html += '<tr>';
+          html += '<tr class="autoScaledServers">';
             
-            html += '<td class="text-center">';
+            html += '<td>';
               html += '<span class="badge bg-light">'+autoScaleServerCounter+'</span>';
             html += '</td>';
             
-            html += '<td class="text-center">';
+            html += '<td>';
               html += '<span class="badge bg-light">Created: '+record['createdTimeSince']+'</span>';
             html += '</td>';
 
-            html += '<td class="text-center">';
+            html += '<td>';
               html += '<span class="badge bg-light">(primary) '+appServerPublicIp+' <-> (public) '+record['publicip']+'</span>';
             html += '</td>';
             
-            html += '<td class="text-center">';
+            html += '<td>';
               html += '<span class="badge bg-light">(primary) '+appServerPrivateIp+' <-> (private) '+record['privateip']+'</span>';
             html += '</td>';
             
-            html += '<td class="text-center">';
+            html += '<td>';
               html += '<span class="badge bg-light">(CPU) '+record['appServerCpuUsed']+'/'+record['appServerCpuTotal']+'</span>';
             html += '</td>';
             
-            html += '<td colspan="2" class="text-center">';
+            html += '<td colspan="2">';
               html += '<span class="badge bg-light">(RAM) '+record['appServerMemoryUsed']+'G/'+record['appServerMemoryTotal']+'G<span>';
             html += '</td>';
             
@@ -384,14 +389,14 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
         //html += '<table id="autoScaledServersList" class="table table-bordered table-hover table-sm table-light"><thead><tr>';
         //html += '<th scope="col">#</th>';
         //html += '<th scope="col">Status</th>';
-        //html += '<th scope="col">Order-ID</th>';
+        //html += '<th scope="col" class="d-none d-lg-table-cell">Order-ID</th>';
         //html += '<th scope="col">Site-ID</th>';
-        //html += '<th scope="col">DB-ID</th>';
+        //html += '<th scope="col" class="d-none d-lg-table-cell">DB-ID</th>';
         //html += '<th scope="col">Domain</th>';
         //html += '<th scope="col">Client email</th>';
-        //html += '<th scope="col">Restrict-ID</th>';
-        //html += '<th scope="col">Bandwidth / Unique / Page views</th>';
-        //html += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
+        //html += '<th scope="col" class="d-none d-lg-table-cell">Restrict-ID</th>';
+        //html += '<th scope="col" class="d-none d-lg-table-cell">Bandwidth / Unique / Page views</th>';
+        //html += '<th scope="col" class="d-none d-lg-table-cell">Storage - <small>APP DB (Inodes)</small></th>';
         //html += '<th scope="col">Actions</th>';
         //html += '</tr></thead><tbody>';
         
@@ -423,18 +428,18 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 				//siteListHtml += '<h5 id="node'+nodeId+'-ctrl-heading">'+nodeName+' site list</h5>';
 				siteListHtml += '<div class="nodeSiteListTableInject">';
 				
-					siteListHtml += '<table data-node-id="'+nodeId+'" data-node-name="'+nodeName+'" id="node'+nodeId+'-SiteListTable" class="table table-bordered table-hover table-sm mb-0"><thead class="table-success"><tr>';
+					siteListHtml += '<table data-node-id="'+nodeId+'" data-node-name="'+nodeName+'" id="node'+nodeId+'-SiteListTable" class="table table-bordered table-hover table-sm mb-0"><thead class="table-dark"><tr>';
 						siteListHtml += '<th scope="col">#</th>';
 						siteListHtml += '<th scope="col">Status</th>';
-						siteListHtml += '<th scope="col">Order-ID</th>';
+						siteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Order-ID</th>';
 						siteListHtml += '<th scope="col">Site-ID</th>';
-            siteListHtml += '<th scope="col">DB-ID</th>';
+            siteListHtml += '<th scope="col" class="d-none d-lg-table-cell">DB-ID</th>';
 						siteListHtml += '<th scope="col">Domain</th>';
 						siteListHtml += '<th scope="col">Client email</th>';
-						siteListHtml += '<th scope="col">Restrict-ID</th>';
-						siteListHtml += '<th scope="col">Bandwidth / Unique / Page views</th>';
-						siteListHtml += '<th scope="col">Storage - <small>APP DB (Inodes)</small></th>';
-						siteListHtml += '<th scope="col">Actions</th>';
+						siteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Restrict-ID</th>';
+						//siteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Bandwidth / Unique / Page views</th>';
+						//siteListHtml += '<th scope="col" class="d-none d-lg-table-cell">Storage - <small>APP DB (Inodes)</small></th>';
+						siteListHtml += '<th scope="col" class="text-end pe-4">Actions</th>';
 					siteListHtml += '</tr></thead><tbody id="node'+nodeId+'-site-list">';
 					
 					var siteCounter = 1;
@@ -455,7 +460,7 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 					siteListHtml += buildPagination( $, nodeId, record['total_sites'], record['total_pages'], record['current_page'], record['results_per_page'] );
 					
 				siteListHtml += '</div>';
-			siteListHtml += '</div> <hr />';
+			siteListHtml += '</div>';
 			$( "#wrapperSiteList" ).append( siteListHtml );
 			
 			counter++;
@@ -636,9 +641,17 @@ function newSiteFormSubmit( $ ){
 		}
 		
 		swalWithBootstrapButtons.fire({
-		  title: 'successfully queued',
-		  text: 'It will take 2-3 minutes to setup the new WordPress site. Email notification will be sent to both admin and client email address if enabled in options.',
-		  icon: 'success', confirmButtonText: 'Got it!', showConfirmButton: true,
+		  title: 'Successfully Queued',
+		  text: 'Setting up your wordpress site. This window will refresh automatically.',
+		  icon: 'success', 
+			showConfirmButton: false,
+      allowOutsideClick: false,
+			timerProgressBar: true,
+			timer: 5000,
+			willClose: () => {
+					// This function will execute when the timer runs out and the modal is about to close
+					window.location.reload(); // Refreshes the current page
+			}
 		});
 		
 	});
@@ -682,7 +695,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 		if( trClass ){
 			
 			if( firstRecord['status'] == '1' ){
-				$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 actionDeactivateSite" href="#">Active <span class="text-success"><small><i class="fas fa-check-square"></i></small></span></a></td>' );
+				$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 actionDeactivateSite text-decoration-none" href="#">Active <span class="text-dark"><small><i class="fas fa-check-square"></i></small></span></a></td>' );
 			}else if( firstRecord['status'] == '222' ){
 				$( '.'+trClass ).append( '<td>Marked For Removal <span class="text-danger"><small><i class="fas fa-times-circle"></i></small></span></td>' );
 			}else if( firstRecord['status'] == '199' ){
@@ -695,33 +708,33 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 			
 			
 			if( firstRecord['unique_order_id'] == null ){
-				$( '.'+trClass ).append( '<td>&nbsp;</td>' );
+				$( '.'+trClass ).append( '<td class="d-none d-lg-table-cell">&nbsp;</td>' );
 			}else{
-				$( '.'+trClass ).append( '<td>'+firstRecord['unique_order_id']+'</td>' );
+				$( '.'+trClass ).append( '<td class="d-none d-lg-table-cell">'+firstRecord['unique_order_id']+'</td>' );
 			}
 			
 
 			
 			$( '.'+trClass ).append( '<td>'+firstRecord['id']+'</td>' );
-      $( '.'+trClass ).append( '<td class="text-center">'+firstRecord['node_db_id']+'</td>' );
+      $( '.'+trClass ).append( '<td class="text-center d-none d-lg-table-cell">'+firstRecord['node_db_id']+'</td>' );
 			
-			$( '.'+trClass ).append( '<td><a class="text-decoration-none" href="https://'+firstRecord['domain']+'/" target="_blank">'+firstRecord['domain']+' <small><i class="fas fa-external-link-alt"></i></small></a> | <a class="text-decoration-none" href="https://'+firstRecord['domain']+'/wp-admin/" target="_blank"><small><i class="fas fa-columns"></i></small></a></td>' );
+			$( '.'+trClass ).append( '<td><a class="btn btn-link p-0 text-decoration-none" href="https://'+firstRecord['domain']+'/" target="_blank">'+firstRecord['domain']+' <small class="text-dark"><i class="fas fa-external-link-alt"></i></small></a> | <a class="text-decoration-none" href="https://'+firstRecord['domain']+'/wp-admin/" target="_blank"><small class="text-dark"><i class="fas fa-columns"></i></small></a></td>' );
 			
 			$( '.'+trClass ).append( '<td>'+firstRecord['client_email']+'</td>' );
 			//$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['wp_version']+'</td>' );
 			//$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['php_version']+'</td>' );
-			$( '.'+trClass ).append( '<td class="text-center">'+firstRecord['restrictions_group']+'</td>' );
+			$( '.'+trClass ).append( '<td class="text-center d-none d-lg-table-cell">'+firstRecord['restrictions_group']+'</td>' );
 			
-			$( '.'+trClass ).append( '<td><small>'+firstRecord['TOTAL_BANDWIDTH_MB']+'MB / '+firstRecord['TOTAL_UNIQUE_VISITORS']+' Unique / '+firstRecord['TOTAL_PAGE_VIEWS']+' Page views</small></td>' );
-			$( '.'+trClass ).append( '<td><small><i class="fas fa-hdd"></i> '+firstRecord['WAAS1_TOTAL_APP_SIZE_MB']+'MB <i class="fas fa-database"></i> '+firstRecord['WAAS1_TOTAL_DB_SIZE_MB']+'MB ('+firstRecord['WAAS1_TOTAL_APP_INODES']+')</small></td>' );
+			//$( '.'+trClass ).append( '<td class="d-none d-lg-table-cell"><small>'+firstRecord['TOTAL_BANDWIDTH_MB']+'MB / '+firstRecord['TOTAL_UNIQUE_VISITORS']+' Unique / '+firstRecord['TOTAL_PAGE_VIEWS']+' Page views</small></td>' );
+			//$( '.'+trClass ).append( '<td class="d-none d-lg-table-cell"><small><i class="fas fa-hdd"></i> '+firstRecord['WAAS1_TOTAL_APP_SIZE_MB']+'MB <i class="fas fa-database"></i> '+firstRecord['WAAS1_TOTAL_DB_SIZE_MB']+'MB ('+firstRecord['WAAS1_TOTAL_APP_INODES']+')</small></td>' );
 			
 			
 			
 			if( (firstRecord['status'] == '222') || (firstRecord['status'] == '199') ){
       }else{
-				var html = '<td>';
+				var html = '<td class="text-end">';
 				
-				html += '<div class="btn-group me-4">';
+				html += '<div class="btn-group me-3">';
 				
 					html += '<a class="btn btn-outline-dark btn-sm actionLoginAsUser" href="#"><i class="fas fa-key"></i></a>';
 					html += '<a class="btn btn-outline-dark btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';

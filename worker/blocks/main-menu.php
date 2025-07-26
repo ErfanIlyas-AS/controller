@@ -1,58 +1,72 @@
-<?php
-if(!defined('DIRECTACCESS'))   die('Direct access not permitted'); //add this to every file included.
-
-$filterOptionsArray = array(
-  'PLATFORM_BRAND_NAME', 'PLATFORM_BRAND_SITE_URL', 'PLATFORM_BRAND_LOGO_URL',
-);
-$brandOptions = getMainWpControllerDetails( $filterOptionsArray );
+<?php //002cd
+if(extension_loaded('ionCube Loader')){die('The file '.__FILE__." is corrupted.\n");}echo("\nScript error: the ".(($cli=(php_sapi_name()=='cli')) ?'ionCube':'<a href="https://www.ioncube.com">ionCube</a>')." Loader for PHP needs to be installed.\n\nThe ionCube Loader is the industry standard PHP extension for running protected PHP code,\nand can usually be added easily to a PHP installation.\n\nFor Loaders please visit".($cli?":\n\nhttps://get-loader.ioncube.com\n\nFor":' <a href="https://get-loader.ioncube.com">get-loader.ioncube.com</a> and for')." an instructional video please see".($cli?":\n\nhttp://ioncu.be/LV\n\n":' <a href="http://ioncu.be/LV">http://ioncu.be/LV</a> ')."\n\n");exit(199);
 ?>
-
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light px-3 py-1 justify-content-between">
-
-	<a class="navbar-brand" href="/index.php">
-		<img src="<?php echo $brandOptions['PLATFORM_BRAND_LOGO_URL']?>" class="d-inline-block me-1" width="200" />
-	</a>
-	
-	
-	<button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
-	  <span class="navbar-toggler-icon"></span>
-	</button>
-	
-	
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-
-		<form id="actionSearchNetwork" class="form">
-			<div class="input-group">
-				<select id="searchType" class="form-select" required="required">
-					<option value="domain" selected>Domain</option>
-					<option value="client-email">Client email</option>
-					<option value="unique-order-id">Order ID</option>
-					<option value="site-id">Site ID</option>
-					<option value="client-saas-member-id">SaaS member ID</option>
-				</select>
-				<input id="searchQuery" class="input-group form-control form-control-sm" type="search" placeholder="Query" required="required">
-				<button class="btn btn-primary" type="submit" id="searchButton">Search</button>
-			</div>
-		</form>
-		
-		
-		<ul class="navbar-nav mr-auto ms-2">
-			<li class="nav-item">
-				<a class="btn btn-md btn-outline-primary <?php echo ( $currentPage == 'view-options' ) ? 'active':''; ?>" href="/index.php?task=view-options" target="_blank">Options</a>
-			</li>
-		</ul>
-
-	</div>
-	
-	
-	<form class="form-inline">
-		<a class="btn btn-sm btn-outline-primary" href="/filegator/" target="_blank">WP Object Store <small><i class="ms-1 fas fa-external-link-alt"></i></small></a>
-	</form>
-	<form class="form-inline">
-		<a class="btn btn-sm btn-outline-primary ms-2" href="/login.php">Logout <small><i class="ms-1 fas fa-sign-out-alt"></i></small></a>
-	</form>
-	
-	
-</nav>
+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
+TwMgg17Pk8aY7meMYxrEESrC
