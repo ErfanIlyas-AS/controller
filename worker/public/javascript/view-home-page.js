@@ -497,8 +497,15 @@ jQuery( document ).ready(function( $ ) {
 			$( '#modalCheckCFStatus .domainCF1' ).html( results.cf_name_servers.name_servers[0] );
 			$( '#modalCheckCFStatus .domainCF2' ).html( results.cf_name_servers.name_servers[1] );
 			
-			$( '#modalCheckCFStatus .domainOR1' ).html( results.cf_name_servers.original_name_servers[0] );
-			$( '#modalCheckCFStatus .domainOR2' ).html( results.cf_name_servers.original_name_servers[1] );
+
+      if (results.cf_name_servers.original_name_servers) {
+        $( '#modalCheckCFStatus .domainOR1' ).html( results.cf_name_servers.original_name_servers[0] );
+        $( '#modalCheckCFStatus .domainOR2' ).html( results.cf_name_servers.original_name_servers[1] );
+      }else{
+        $( '#modalCheckCFStatus .domainOR1' ).html( 'N/A' );
+        $( '#modalCheckCFStatus .domainOR2' ).html( 'N/A' );
+      }
+      
 			
 			//hide the loading div
 			$( '.modalLoadingDivWrapper' ).slideUp();
