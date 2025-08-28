@@ -480,14 +480,14 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
 
 function buildPagination( $, nodeId, total_sites, total_pages, current_page, results_per_page ){
 	var html = '';
-	html += '<div id="node'+nodeId+'-pagination" class="row divData" data-node-id="'+nodeId+'" data-page-current="'+current_page+'" data-max-page-results="'+results_per_page+'">';
+	html += '<div id="node'+nodeId+'-pagination" class="row divData mt-3" data-node-id="'+nodeId+'" data-page-current="'+current_page+'" data-max-page-results="'+results_per_page+'">';
 	
 		html += '<div class="col-sm-12 col-md-5 align-self-center">';
 			html += '<strong>'+total_sites+' total sites</strong> - Listing page '+current_page+' of '+total_pages+'';
 		html += '</div>';
 		
 		html += '<div class="col-sm-12 col-md-7">';
-			html += '<ul class="pagination m-0 float-end">';
+			html += '<ul class="pagination m-0">';
 				
 				//previous page
 				if( current_page == 1 ){

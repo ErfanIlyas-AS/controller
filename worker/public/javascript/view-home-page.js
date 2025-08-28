@@ -568,7 +568,7 @@ jQuery( document ).ready(function( $ ) {
 			
 			
 			$([document.documentElement, document.body]).animate({
-				scrollTop: $( "#node"+selectedNodeId+"-ctrl-heading" ).offset().top
+				scrollTop: $( "#node1-SiteListTable" ).offset().top
 			}, 500);
 			
 
