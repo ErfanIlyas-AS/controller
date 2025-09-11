@@ -518,6 +518,49 @@ jQuery( document ).ready(function( $ ) {
 		
 	});
 	//dynamic onclick actionCheckCFStatus ends
+
+
+
+
+
+
+
+
+
+  //dynamic onclick actionRefreshStaticPages starts
+	$( '#injectNodeData' ).on( 'click', '.actionRefreshStaticPages', async function( e ) {
+		e.preventDefault();
+		
+		var test = postRefreshStaticPages( $ ).done( function( apiData ){
+			var status = apiData.status;
+
+			if(status){
+        
+        swalWithBootstrapButtons.fire({
+          text: 'All static sites will be refreshed soon.',
+          icon: 'success', confirmButtonText: 'Got it!', showConfirmButton: true,
+        });
+        
+      }else{
+
+        swalWithBootstrapButtons.fire({
+          text: 'Something went wrong. Please try again later.',
+          icon: 'error', confirmButtonText: 'Got it!', showConfirmButton: true,
+        });
+
+      }
+		}).fail( function(){
+
+      swalWithBootstrapButtons.fire({
+        text: 'Something went wrong. Please try again later.',
+        icon: 'error', confirmButtonText: 'Got it!', showConfirmButton: true,
+      });
+
+    });
+		
+		
+	});
+	//dynamic onclick actionRefreshStaticPages ends
   
   
 

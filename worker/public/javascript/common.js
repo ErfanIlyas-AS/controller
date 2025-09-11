@@ -319,7 +319,11 @@ function getAllNodes( $, ctrl, skipPrimaryNode='true', withInfoResource='false' 
             html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.3">PHP8.3-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=7.4">PHP7.4-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=view-phpinfo&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'&opcache-status-php-version=8.1">PHP8.1-Info <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
-            
+
+            html += '<li><hr class="dropdown-divider"></li>';
+					  html += '<li><a class="dropdown-item actionRefreshStaticPages" target="_blank" href="#">Refresh all Static Pages <small><i class="ms-1 fas fa-rotate"></i></small></a></li>';
+
+
 					  //html += '<li><hr class="dropdown-divider"></li>';
 					  //html += '<li><a class="dropdown-item" target="_blank" href="https://ctrl-'+nodeId+'.'+ROOT_DOMAIN_NAME+'/index.php?task=GIT_FETCH_DEPLOY_FROM_CTRL&otp-key='+OTP_KEY+'&otp-token='+OTP_TOKEN+'">Git Fetch & Deploy <small><i class="ms-1 fas fa-external-link-alt"></i></small></a></li>';
             
@@ -738,7 +742,7 @@ function getSiteInfo( $, ctrl, siteId, trClass=false, selectIdElement=false ){
 				
 					html += '<a class="btn btn-outline-dark btn-sm actionLoginAsUser" href="#"><i class="fas fa-key"></i></a>';
 					html += '<a class="btn btn-outline-dark btn-sm actionUpdateSite" href="#"><i class="fas fa-edit"></i></a>';
-          html += '<a class="btn btn-outline-dark btn-sm actionCheckCFStatus" href="#"><i class="fas fa-cloud"></i></a>';
+          html += '<a class="btn btn-outline-dark btn-sm actionCheckCFStatus" href="#"><i class="fa-brands fa-cloudflare"></i></a>';
           
 					html += '<a class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></a>';
 						html += '<div class="dropdown-menu">';
@@ -844,6 +848,19 @@ function getCFStatus( $, siteId ){
   return $.ajax({
 		method: 'post',
 		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'site/get-auto-site/',
+		data:paramters
+	});
+  
+}
+
+
+
+function postRefreshStaticPages( $ ){
+  
+  paramters = { 'user':'superduper', 'key':API_KEY };
+  return $.ajax({
+		method: 'post',
+		url:'//ctrl.'+ROOT_DOMAIN_NAME+API_VERSION+'network/refresh-static-pages/',
 		data:paramters
 	});
   
